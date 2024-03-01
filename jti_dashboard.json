@@ -1,4 +1,41 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_INFLUXDB",
+      "label": "InfluxDB",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "influxdb",
+      "pluginName": "InfluxDB"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "10.3.3"
+    },
+    {
+      "type": "datasource",
+      "id": "influxdb",
+      "name": "InfluxDB",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -18,14 +55,14 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
+  "id": null,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "P951FEA4DE68E13C5"
+        "uid": "${DS_INFLUXDB}"
       },
       "fieldConfig": {
         "defaults": {
@@ -35,30 +72,34 @@
           "fieldMinMax": false,
           "mappings": [],
           "thresholds": {
-            "mode": "percentage",
+            "mode": "absolute",
             "steps": [
               {
                 "color": "green",
                 "value": null
               },
               {
+                "color": "orange",
+                "value": 50
+              },
+              {
                 "color": "red",
-                "value": 80
+                "value": 60
               }
             ]
           },
           "unit": "percent",
-          "unitScale": false
+          "unitScale": true
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
-        "w": 4,
+        "h": 8,
+        "w": 6,
         "x": 0,
         "y": 0
       },
-      "id": 2,
+      "id": 4,
       "options": {
         "colorMode": "value",
         "graphMode": "area",
@@ -72,6 +113,7 @@
           "values": false
         },
         "showPercentChange": false,
+        "text": {},
         "textMode": "auto",
         "wideLayout": true
       },
@@ -81,7 +123,7 @@
           "alias": "CPU",
           "datasource": {
             "type": "influxdb",
-            "uid": "b59dd73c-20a9-44e5-bca6-f7cd7cba7ee4"
+            "uid": "${DS_INFLUXDB}"
           },
           "groupBy": [
             {
@@ -118,15 +160,15 @@
           ],
           "tags": [
             {
-              "key": "/components/component/properties/property/@name::tag",
-              "operator": "=",
-              "value": "cpu-utilization-total"
-            },
-            {
-              "condition": "AND",
               "key": "device::tag",
               "operator": "=~",
               "value": "/^$Device$/"
+            },
+            {
+              "condition": "AND",
+              "key": "/components/component/properties/property/@name::tag",
+              "operator": "=",
+              "value": "cpu-utilization-total"
             }
           ]
         }
@@ -151,40 +193,43 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "P951FEA4DE68E13C5"
+        "uid": "${DS_INFLUXDB}"
       },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
-          "fieldMinMax": false,
           "mappings": [],
           "thresholds": {
-            "mode": "percentage",
+            "mode": "absolute",
             "steps": [
               {
                 "color": "green",
                 "value": null
               },
               {
+                "color": "orange",
+                "value": 50
+              },
+              {
                 "color": "red",
-                "value": 80
+                "value": 60
               }
             ]
           },
           "unit": "celsius",
-          "unitScale": false
+          "unitScale": true
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 8,
         "w": 6,
-        "x": 4,
+        "x": 6,
         "y": 0
       },
-      "id": 3,
+      "id": 5,
       "options": {
         "colorMode": "value",
         "graphMode": "area",
@@ -204,10 +249,10 @@
       "pluginVersion": "10.3.3",
       "targets": [
         {
-          "alias": "Temp",
+          "alias": "Temperature",
           "datasource": {
             "type": "influxdb",
-            "uid": "b59dd73c-20a9-44e5-bca6-f7cd7cba7ee4"
+            "uid": "${DS_INFLUXDB}"
           },
           "groupBy": [
             {
@@ -244,20 +289,20 @@
           ],
           "tags": [
             {
-              "key": "/components/component/properties/property/@name::tag",
-              "operator": "=",
-              "value": "temperature"
-            },
-            {
-              "condition": "AND",
               "key": "device::tag",
               "operator": "=~",
               "value": "/^$Device$/"
+            },
+            {
+              "condition": "AND",
+              "key": "/components/component/properties/property/@name::tag",
+              "operator": "=",
+              "value": "temperature"
             }
           ]
         }
       ],
-      "title": "Temp",
+      "title": "Temperature",
       "transformations": [
         {
           "id": "convertFieldType",
@@ -265,7 +310,7 @@
             "conversions": [
               {
                 "destinationType": "number",
-                "targetField": "Temp"
+                "targetField": "Temperature"
               }
             ],
             "fields": {}
@@ -277,9 +322,8 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "P951FEA4DE68E13C5"
+        "uid": "${DS_INFLUXDB}"
       },
-      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -317,7 +361,233 @@
               "mode": "off"
             }
           },
-          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "pps",
+          "unitScale": true
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TX"
+            },
+            "properties": [
+              {
+                "id": "custom.transform",
+                "value": "negative-Y"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "RX",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "/interfaces/",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "/interfaces/interface/state/counters/in-broadcast-pkts"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": [
+                  "1s"
+                ],
+                "type": "non_negative_derivative"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$Device$/"
+            },
+            {
+              "condition": "AND",
+              "key": "/interfaces/interface/@name::tag",
+              "operator": "=~",
+              "value": "/^$Interface$/"
+            }
+          ]
+        },
+        {
+          "alias": "TX",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "/interfaces/",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "/interfaces/interface/state/counters/out-broadcast-pkts"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": [
+                  "1s"
+                ],
+                "type": "non_negative_derivative"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$Device$/"
+            },
+            {
+              "condition": "AND",
+              "key": "/interfaces/interface/@name::tag",
+              "operator": "=~",
+              "value": "/^$Interface$/"
+            }
+          ]
+        }
+      ],
+      "title": "Broadcast PPS - $Interface - $IfDescription",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 50,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -358,17 +628,17 @@
         ]
       },
       "gridPos": {
-        "h": 10,
-        "w": 14,
+        "h": 8,
+        "w": 12,
         "x": 0,
-        "y": 5
+        "y": 8
       },
       "id": 1,
       "options": {
         "legend": {
           "calcs": [
-            "lastNotNull",
-            "max"
+            "max",
+            "lastNotNull"
           ],
           "displayMode": "table",
           "placement": "bottom",
@@ -384,7 +654,7 @@
           "alias": "RX",
           "datasource": {
             "type": "influxdb",
-            "uid": "b59dd73c-20a9-44e5-bca6-f7cd7cba7ee4"
+            "uid": "${DS_INFLUXDB}"
           },
           "groupBy": [
             {
@@ -433,15 +703,15 @@
           ],
           "tags": [
             {
-              "key": "/interfaces/interface/@name::tag",
-              "operator": "=~",
-              "value": "/^$Interface$/"
-            },
-            {
-              "condition": "AND",
               "key": "device::tag",
               "operator": "=~",
               "value": "/^$Device$/"
+            },
+            {
+              "condition": "AND",
+              "key": "/interfaces/interface/@name::tag",
+              "operator": "=~",
+              "value": "/^$Interface$/"
             }
           ]
         },
@@ -449,7 +719,7 @@
           "alias": "TX",
           "datasource": {
             "type": "influxdb",
-            "uid": "b59dd73c-20a9-44e5-bca6-f7cd7cba7ee4"
+            "uid": "${DS_INFLUXDB}"
           },
           "groupBy": [
             {
@@ -499,20 +769,247 @@
           ],
           "tags": [
             {
-              "key": "/interfaces/interface/@name::tag",
-              "operator": "=~",
-              "value": "/^$Interface$/"
-            },
-            {
-              "condition": "AND",
               "key": "device::tag",
               "operator": "=~",
               "value": "/^$Device$/"
+            },
+            {
+              "condition": "AND",
+              "key": "/interfaces/interface/@name::tag",
+              "operator": "=~",
+              "value": "/^$Interface$/"
             }
           ]
         }
       ],
-      "title": "Interface Bandwidth - $Interface",
+      "title": "Interface Bandwidth - $Interface - $IfDescription",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 50,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "pps",
+          "unitScale": true
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TX"
+            },
+            "properties": [
+              {
+                "id": "custom.transform",
+                "value": "negative-Y"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "id": 3,
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "RX",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "/interfaces/",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "/interfaces/interface/state/counters/in-multicast-pkts"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": [
+                  "1s"
+                ],
+                "type": "non_negative_derivative"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$Device$/"
+            },
+            {
+              "condition": "AND",
+              "key": "/interfaces/interface/@name::tag",
+              "operator": "=~",
+              "value": "/^$Interface$/"
+            }
+          ]
+        },
+        {
+          "alias": "TX",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "/interfaces/",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "/interfaces/interface/state/counters/out-multicast-pkts"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": [
+                  "1s"
+                ],
+                "type": "non_negative_derivative"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$Device$/"
+            },
+            {
+              "condition": "AND",
+              "key": "/interfaces/interface/@name::tag",
+              "operator": "=~",
+              "value": "/^$Interface$/"
+            }
+          ]
+        }
+      ],
+      "title": "Multicast PPS - $Interface - $IfDescription",
       "type": "timeseries"
     }
   ],
@@ -522,22 +1019,18 @@
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": true,
-          "text": "sw01.lab.nlogic.se",
-          "value": "sw01.lab.nlogic.se"
-        },
+        "current": {},
         "datasource": {
           "type": "influxdb",
-          "uid": "P951FEA4DE68E13C5"
+          "uid": "${DS_INFLUXDB}"
         },
-        "definition": "SHOW TAG VALUES ON \"jti\" FROM \"/interfaces/\" WITH KEY = \"device\"",
+        "definition": "SHOW TAG VALUES FROM \"/interfaces/\" WITH KEY = \"device\"",
         "hide": 0,
         "includeAll": false,
         "multi": false,
         "name": "Device",
         "options": [],
-        "query": "SHOW TAG VALUES ON \"jti\" FROM \"/interfaces/\" WITH KEY = \"device\"",
+        "query": "SHOW TAG VALUES FROM \"/interfaces/\" WITH KEY = \"device\"",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -545,22 +1038,29 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": true,
-          "text": "ge-1/0/10",
-          "value": "ge-1/0/10"
-        },
-        "datasource": {
-          "type": "influxdb",
-          "uid": "P951FEA4DE68E13C5"
-        },
-        "definition": "SHOW TAG VALUES ON \"jti\" FROM \"/interfaces/\" WITH KEY = \"/interfaces/interface/@name\"",
+        "current": {},
+        "definition": "SHOW TAG VALUES FROM \"/interfaces/\" WITH KEY = \"/interfaces/interface/@name\" WHERE \"device\" =~ /^$Device$/",
         "hide": 0,
         "includeAll": false,
         "multi": false,
         "name": "Interface",
         "options": [],
-        "query": "SHOW TAG VALUES ON \"jti\" FROM \"/interfaces/\" WITH KEY = \"/interfaces/interface/@name\"",
+        "query": "SHOW TAG VALUES FROM \"/interfaces/\" WITH KEY = \"/interfaces/interface/@name\" WHERE \"device\" =~ /^$Device$/",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {},
+        "definition": "SELECT \"/interfaces/interface/state/description\" FROM /interfaces/ WHERE (\"/interfaces/interface/@name\"::tag =~ /^$Interface$/ AND \"device\"::tag =~ /^$Device$/)",
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "IfDescription",
+        "options": [],
+        "query": "SELECT \"/interfaces/interface/state/description\" FROM /interfaces/ WHERE (\"/interfaces/interface/@name\"::tag =~ /^$Interface$/ AND \"device\"::tag =~ /^$Device$/)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -576,7 +1076,7 @@
   "timepicker": {},
   "timezone": "",
   "title": "Juniper Telemetry Interface",
-  "uid": "f5c1721a-7f51-4c3f-981e-70364d3ef623",
-  "version": 9,
+  "uid": "de5e0681-e22f-4f62-9a20-269d63ef052f",
+  "version": 17,
   "weekStart": ""
 }
