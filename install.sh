@@ -207,6 +207,7 @@ EOF
 
 echo "$inputs_jti" > /etc/telegraf/telegraf.d/inputs.jti.conf
 
+chown telegraf:telegraf /etc/telegraf/telegraf.d/*
 chmod 640 /etc/telegraf/telegraf.d/*
 
 systemctl start telegraf
