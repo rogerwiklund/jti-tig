@@ -330,6 +330,7 @@ systemctl enable grafana-server
 systemctl start grafana-server
 #
 #
+echo ""
 echo "####################"
 echo "Installation completed"
 echo ""
@@ -339,7 +340,8 @@ echo "Telegraf config files - /etc/telegraf/telegraf.d/"
 echo "InfluxDB config file - /etc/influxdb/influxdb.conf"
 echo "Grafana config file - /etc/grafana/grafana.ini"
 echo ""
-echo "systemctl start/stop/restart telegraf.service"
-echo "systemctl start/stop/restart influxdb.service"
-echo "systemctl start/stop/restart grafana-server.service"
+echo "systemctl start/stop/restart telegraf"
+echo "systemctl start/stop/restart influxdb"
+echo "systemctl start/stop/restart grafana-server"
 echo "####################"
+echo ""
