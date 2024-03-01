@@ -207,6 +207,8 @@ EOF
 
 echo "$inputs_jti" > /etc/telegraf/telegraf.d/inputs.jti.conf
 
+chmod 640 /etc/telegraf/telegraf.d/*
+
 systemctl start telegraf
 #
 #
@@ -300,6 +302,7 @@ EOF
 
 echo "$grafana_datasource" > /etc/grafana/provisioning/datasources/jti_influxdb.yaml
 chown root:grafana /etc/grafana/provisioning/datasources/jti_influxdb.yaml
+chmod 640 /etc/grafana/provisioning/datasources/jti_influxdb.yaml
 
 grafana_dashboard=$(cat <<EOF
 apiVersion: 1
@@ -320,6 +323,7 @@ chown root:grafana /etc/grafana/provisioning/dashboards/jti_influxdb.yaml
 
 wget -P /var/lib/grafana/dashboards/ https://raw.githubusercontent.com/rogerwiklund/jti-tig/main/jti_dashboard.json
 chown -R grafana:grafana /var/lib/grafana/dashboards/
+chmod 640 /etc/grafana/provisioning/dashboards/jti_dashboard.yaml
 
 systemctl daemon-reload
 systemctl enable grafana-server
