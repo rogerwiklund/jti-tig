@@ -5,7 +5,7 @@
 sed -i "s/#\$nrconf{restart} = 'i';/\$nrconf{restart} = 'a';/" /etc/needrestart/needrestart.conf
 #
 #
-echo -e "This script will install and configure Telegraf, InfluxDB and Grafana from official repos/sources.\n"
+echo -e "\nThis script will install and configure Telegraf, InfluxDB and Grafana from the official repos.\n"
 
 prompt_for_input() {
     local prompt_text=$1
@@ -26,7 +26,7 @@ while true; do
     prompt_for_input "Create a new user for InfluxDB (example: admin)" db_user
     prompt_for_input "Enter the password for the InfluxDB user" db_pwd
     prompt_for_input "Enter the database retention period in days (example: 90d)" db_retention
-    prompt_for_input "Enter the FQDN or IP of a Juniper device capable of Telemetry Streaming (don't worry, you can add more after the installation)" juniper_device
+    prompt_for_input "Enter the FQDN or IP of a Juniper device capable of Telemetry Streaming (you can add more after the installation)" juniper_device
 
     echo -e "\nCollected Information:"
     echo "FQDN: $fqdn"
@@ -330,4 +330,16 @@ systemctl enable grafana-server
 systemctl start grafana-server
 #
 #
-echo $'\n##############################\nInstallation completed. Go to https://fqdn:443 to access Grafana\nUsername/password is admin/admin\n##############################\n'
+echo "####################"
+echo "Installation completed"
+echo ""
+echo "Go to https://fqdn:443 with default credentials admin/admin to access Grafana"
+echo ""
+echo "Telegraf config files - /etc/telegraf/telegraf.d/"
+echo "InfluxDB config file - /etc/influxdb/influxdb.conf"
+echo "Grafana config file - /etc/grafana/grafana.ini"
+echo ""
+echo "systemctl start/stop/restart telegraf.service"
+echo "systemctl start/stop/restart influxdb.service"
+echo "systemctl start/stop/restart grafana-server.service"
+echo "####################"
