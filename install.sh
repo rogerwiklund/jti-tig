@@ -305,26 +305,26 @@ echo "$grafana_datasource" > /etc/grafana/provisioning/datasources/jti_influxdb.
 chown root:grafana /etc/grafana/provisioning/datasources/jti_influxdb.yaml
 chmod 640 /etc/grafana/provisioning/datasources/jti_influxdb.yaml
 
-grafana_dashboard=$(cat <<EOF
-apiVersion: 1
+#grafana_dashboard=$(cat <<EOF
+#apiVersion: 1
+#
+#providers:
+# - name: 'default'
+#   orgId: 1
+#   folder: ''
+#   folderUid: ''
+#   type: file
+#   options:
+#     path: /var/lib/grafana/dashboards
+#EOF
+#)
+#
+#echo "$grafana_dashboard" > /etc/grafana/provisioning/dashboards/jti_dashboard.yaml
+#chown root:grafana /etc/grafana/provisioning/dashboards/jti_dashboard.yaml
+#chmod 640 /etc/grafana/provisioning/dashboards/jti_dashboard.yaml
 
-providers:
- - name: 'default'
-   orgId: 1
-   folder: ''
-   folderUid: ''
-   type: file
-   options:
-     path: /var/lib/grafana/dashboards
-EOF
-)
-
-echo "$grafana_dashboard" > /etc/grafana/provisioning/dashboards/jti_dashboard.yaml
-chown root:grafana /etc/grafana/provisioning/dashboards/jti_dashboard.yaml
-chmod 640 /etc/grafana/provisioning/dashboards/jti_dashboard.yaml
-
-wget -P /var/lib/grafana/dashboards/ https://raw.githubusercontent.com/rogerwiklund/jti-tig/main/jti_dashboard.json
-chown -R grafana:grafana /var/lib/grafana/dashboards/
+#wget -P /var/lib/grafana/dashboards/ https://raw.githubusercontent.com/rogerwiklund/jti-tig/main/jti_dashboard.json
+#chown -R grafana:grafana /var/lib/grafana/dashboards/
 
 systemctl daemon-reload
 systemctl enable grafana-server
