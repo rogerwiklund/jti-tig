@@ -34,7 +34,7 @@ while true; do
     echo "Password: *** (hidden)"
     echo "Database Retention Period: $db_retention"
     echo "Juniper Device FQDN/IP: $juniper_device"
-
+    echo ""
     read -p "Do you want to continue? (yes/no): " continue_input
 
     if [[ $continue_input != "no" ]]; then
