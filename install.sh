@@ -222,13 +222,11 @@ apt-get update -y
 apt-get install -y influxdb
 
 openssl req -nodes -x509 -sha256 -newkey rsa:2048 \
-  -keyout /etc/ssl/influxdb-selfsigned.key \
-  -out /etc/ssl/influxdb-selfsigned.crt \
+  -keyout /etc/ssl/$fqdn-selfsigned.key \
+  -out /etc/ssl/$fqdn-selfsigned.crt \
   -days 3560 \
   -subj "/C=US/ST=California/L=Toontown/O=Acme inc./OU=IT/CN=$fqdn"  \
   -addext "subjectAltName = DNS:$fqdn"
-
-chown influxdb:influxdb /etc/ssl/influxdb-selfsigned.*
 
 systemctl unmask influxdb.service
 systemctl start influxdb
@@ -238,8 +236,8 @@ influx -execute "CREATE DATABASE jti WITH DURATION $db_retention"
 
 sed -i 's/# auth-enabled = false/auth-enabled = true/g' /etc/influxdb/influxdb.conf
 sed -i 's/# https-enabled = false/https-enabled = true/g' /etc/influxdb/influxdb.conf
-sed -i 's/# https-certificate = "\/etc\/ssl\/influxdb.pem"/https-certificate = "\/etc\/ssl\/influxdb-selfsigned.crt"/g' /etc/influxdb/influxdb.conf
-sed -i 's/# https-private-key = ""/https-private-key = "\/etc\/ssl\/influxdb-selfsigned.key"/g' /etc/influxdb/influxdb.conf
+sed -i 's/# https-certificate = "\/etc\/ssl\/influxdb.pem"/https-certificate = "\/etc\/ssl\/\$fqdn-selfsigned.crt"/g' /etc/influxdb/influxdb.conf
+sed -i 's/# https-private-key = ""/https-private-key = "\/etc\/ssl\/\$fqdn-selfsigned.key"/g' /etc/influxdb/influxdb.conf
 
 sudo systemctl restart influxdb
 #
@@ -253,22 +251,21 @@ echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stab
 apt-get update -y
 apt-get install -y grafana-enterprise
 
-openssl req -nodes -x509 -sha256 -newkey rsa:2048 \
-  -keyout /etc/grafana/grafana.key \
-  -out /etc/grafana/grafana.crt \
-  -days 3560 \
-  -subj "/C=US/ST=California/L=Toontown/O=Acme inc./OU=IT/CN=$fqdn"  \
-  -addext "subjectAltName = DNS:$fqdn"
+#openssl req -nodes -x509 -sha256 -newkey rsa:2048 \
+#  -keyout /etc/ssl/grafana-selfsigned.key \
+#  -out /etc/ssl/grafana-selfsigned.crt \
+#  -days 3560 \
+#  -subj "/C=US/ST=California/L=Toontown/O=Acme inc./OU=IT/CN=$fqdn"  \
+#  -addext "subjectAltName = DNS:$fqdn"
 
-chown grafana:grafana /etc/grafana/grafana.crt
-chown grafana:grafana /etc/grafana/grafana.key
-chmod 400 /etc/grafana/grafana.key /etc/grafana/grafana.crt
+#chown grafana:grafana /etc/ssl/grafana-selfsigned.*
+#chmod 400 /etc/ssl/grafana-selfsigned.key
 
 sed -i "s/;protocol = http/protocol = https/" /etc/grafana/grafana.ini
 sed -i "s/;http_port = 3000/http_port = 443/" /etc/grafana/grafana.ini
 sed -i "s/;domain = localhost/domain = $fqdn/" /etc/grafana/grafana.ini
-sed -i "s/;cert_file =/cert_file = \/etc\/grafana\/grafana.crt/" /etc/grafana/grafana.ini
-sed -i "s/;cert_key =/cert_key = \/etc\/grafana\/grafana.key/" /etc/grafana/grafana.ini
+sed -i "s/;cert_file =/cert_file = \/etc\/ssl\/$fqdn-selfsigned.crt/" /etc/grafana/grafana.ini
+sed -i "s/;cert_key =/cert_key = \/etc\/ssl\/$fqdn-selfsigned.key/" /etc/grafana/grafana.ini
 
 mkdir -p /etc/systemd/system/grafana-server.service.d
 
