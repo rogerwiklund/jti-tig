@@ -165,7 +165,8 @@ inputs_jti=$(cat <<EOF
     sensors = [
     "/interfaces/",
     "/components/",
-    "/junos/",
+    "/network-instances/",
+    "system_alarms /system/alarms/alarm/",
    ]
 #
 #   ## We allow specifying sensor group level reporting rate. To do this, specify the
