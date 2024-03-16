@@ -206,7 +206,29 @@ inputs_jti=$(cat <<EOF
 EOF
 )
 
-echo "$inputs_jti" > /etc/telegraf/telegraf.d/inputs.jti.conf
+echo "$inputs_jti" > /etc/telegraf/telegraf.d/$juniper_device-inputs.jti.conf
+
+proccessors_jti=$(cat <<EOF
+# Convert various measurements from string to float for easier manipulation in Grafana
+[[processors.rename]]
+  [processors.rename.tagpass]
+    "/components/component/properties/property/@name" = ["cpu-utilization-idle","memory-utilization-buffer","temperature","uptime"]
+  [[processors.rename.replace]]
+    field = "/components/component/properties/property/state/value"
+    dest = "/components/component/properties/property/state/value_float"
+
+[[processors.converter]]
+  [processors.converter.fields]
+    float = ["/components/component/properties/property/state/value_float"]
+
+# Fix possible Junos bug where loopback-mode is string instead of boolean
+[[processors.converter]]
+  [processors.converter.fields]
+    boolean = ["/interfaces/interface/state/loopback-mode"]
+EOF
+)
+
+echo "$processors_jti" > /etc/telegraf/telegraf.d/processors.conf
 
 chown telegraf:telegraf /etc/telegraf/telegraf.d/*
 chmod 640 /etc/telegraf/telegraf.d/*
