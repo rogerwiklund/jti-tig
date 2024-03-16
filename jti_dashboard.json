@@ -236,7 +236,7 @@
           "calcs": [
             "lastNotNull"
           ],
-          "fields": "/^Alarms$/",
+          "fields": "/^Reason$/",
           "values": false
         },
         "showPercentChange": false,
@@ -246,7 +246,7 @@
       "pluginVersion": "10.4.0",
       "targets": [
         {
-          "alias": "Alarms",
+          "alias": "Reason",
           "datasource": {
             "type": "influxdb",
             "uid": "${DS_INFLUXDB}"
@@ -403,13 +403,19 @@
             [
               {
                 "params": [
-                  "/components/component/properties/property/state/value"
+                  "/components/component/properties/property/state/value_float"
                 ],
                 "type": "field"
               },
               {
                 "params": [],
                 "type": "last"
+              },
+              {
+                "params": [
+                  " * -1 + 100"
+                ],
+                "type": "math"
               }
             ]
           ],
@@ -526,7 +532,7 @@
             [
               {
                 "params": [
-                  "/components/component/properties/property/state/value"
+                  "/components/component/properties/property/state/value_float"
                 ],
                 "type": "field"
               },
@@ -675,7 +681,7 @@
             [
               {
                 "params": [
-                  "/components/component/properties/property/state/value"
+                  "/components/component/properties/property/state/value_float"
                 ],
                 "type": "field"
               },
@@ -794,7 +800,7 @@
             [
               {
                 "params": [
-                  "/components/component/properties/property/state/value"
+                  "/components/component/properties/property/state/value_float"
                 ],
                 "type": "field"
               },
@@ -4440,6 +4446,6 @@
   "timezone": "",
   "title": "Juniper Telemetry Interface",
   "uid": "de5e0681-e22f-4f62-9a20-269d63ef052f",
-  "version": 125,
+  "version": 128,
   "weekStart": ""
 }
