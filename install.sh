@@ -23,6 +23,7 @@ prompt_for_input() {
 
 while true; do
     prompt_for_input "Enter the _full_ FQDN for this server (example: grafana01.acme-corp.com)" fqdn
+    prompt_for_input "Create a new database for InfluxDB (example: jti)" db_name
     prompt_for_input "Create a new user for InfluxDB (example: admin)" db_user
     prompt_for_input "Enter the password for the InfluxDB user" db_pwd
     prompt_for_input "Enter the database retention period in days (example: 90d)" db_retention
@@ -30,6 +31,7 @@ while true; do
 
     echo -e "\nCollected Information:"
     echo "FQDN: $fqdn"
+    echo "InfluxDB Database: $db_name"
     echo "InfluxDB Username: $db_user"
     echo "Password: *** (hidden)"
     echo "Database Retention Period: $db_retention"
@@ -70,7 +72,7 @@ outputs_influxdb=$(cat <<EOF
 #
 #   ## The target database for metrics; will be created as needed.
 #   ## For UDP url endpoint database needs to be configured on server side.
-    database = "jti"
+    database = "$db_name"
 #
 #   ## The value of this tag will be used to determine the database.  If this
 #   ## tag is not set the 'database' option is used as the default.
@@ -257,7 +259,7 @@ systemctl unmask influxdb.service
 systemctl start influxdb
 
 influx -execute "CREATE USER $db_user WITH PASSWORD '$db_pwd' WITH ALL PRIVILEGES"
-influx -execute "CREATE DATABASE jti WITH DURATION $db_retention"
+influx -execute "CREATE DATABASE $db_name WITH DURATION $db_retention"
 
 sed -i 's/# auth-enabled = false/auth-enabled = true/g' /etc/influxdb/influxdb.conf
 sed -i 's/# https-enabled = false/https-enabled = true/g' /etc/influxdb/influxdb.conf
@@ -313,7 +315,7 @@ datasources:
    user: $db_user
    isDefault: false
    jsonData:
-     dbName: "jti"
+     dbName: "$db_name"
      tlsSkipVerify: true
      version: InfluxQL
    secureJsonData:
