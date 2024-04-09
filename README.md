@@ -40,6 +40,13 @@ Do you want to continue? (yes/no): yes
 ```
 
 Self-signed certificates will be generated for Grafana and InfluxDB with the hostname given in the first prompt.
+After the installation go to http://fqdn to login to Grafana.
+
+## Telegraf configuration files
+Todo
+
+### Telegraf processors
+Todo
 
 ## Juniper Telemetry Explorer
 https://apps.juniper.net/telemetry-explorer/
