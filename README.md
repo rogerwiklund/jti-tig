@@ -1,6 +1,6 @@
 ## JTI-TIG
 This repo contains a bash script that will install and configure Telegraf, InfluxDB and Grafana for the official repos.  
-A pre-build Grafan Dashboard is provided used to monitor Streaming Telemetry from Juniper devices.
+A pre-build Grafan Dashboard is provided to monitor Streaming Telemetry from Juniper devices.
 
 - Telegraf-latest
 - InfluxDB 1.8x-latest
