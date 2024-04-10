@@ -40,7 +40,7 @@ Juniper Device FQDN/IP: qfx01.acme-corp.com
 Do you want to continue? (yes/no): yes
 ```
 
-Self-signed certificates will be generated for Grafana and InfluxDB with the hostname given in the first prompt.
+Self-signed certificates will be generated for Grafana and InfluxDB with the hostname given in the first prompt.  
 After the installation go to http://fqdn to login to Grafana.
 
 ## Telegraf configuration files
