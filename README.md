@@ -1,11 +1,12 @@
 ## JTI-TIG
-This repo contains a bash script that will install and configure Telegraf, InfluxDB and Grafana. A pre-built dashboard is
+This repo contains a bash script that will install and configure Telegraf, InfluxDB and Grafana for the official repos.  
+A pre-build Grafan Dashboard is provided that to monitor Streaming Telemetry from Juniper devices.
 
-- Telegraf latest
+- Telegraf-latest
 - InfluxDB 1.8.x
-- Grafana Enterprise latest
+- Grafana Enterprise-latest
 
-I have not selected InfluxDB 2.x because it uses the Flux query language and Grafana has no suppport for this using the query builder.  
+InfluxDB 1.8 is used because 2.x uses the Flux query language and Grafana has no suppport for this using the query builder.  
 When InfluxDB 3.0 community edition is released I will update this script to use 3.0 instead which uses SQL.
 
 ## Requirements
