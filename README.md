@@ -58,7 +58,7 @@ todo, info about mgmt_junos, config for tls and firewall filter/ports
 ```
 
 ## Add more Juniper devices
-/etc/telegraf/telegraf.d
+/etc/telegraf/telegraf.d  
 todo
 
 ## Telegraf configuration files
