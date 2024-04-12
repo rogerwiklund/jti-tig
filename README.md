@@ -48,6 +48,8 @@ After the installation go to http://fqdn to login to Grafana.
 set system services extension-service request-response grpc clear-text port 32767
 set system services extension-service request-response grpc routing-instance mgmt_junos
 set system services extension-service request-response grpc skip-authentication
+
+todo, info about mgmt_junos, config for tls and firewall filter/ports
 ```
 
 ## Telegraf configuration files
