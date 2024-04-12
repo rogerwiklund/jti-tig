@@ -53,16 +53,22 @@ Do you want to continue? (yes/no): yes
 set system services extension-service request-response grpc clear-text port 32767
 set system services extension-service request-response grpc routing-instance mgmt_junos
 set system services extension-service request-response grpc skip-authentication
-
-todo, info about mgmt_junos, config for tls and firewall filter/ports
 ```
+- todo, info about mgmt_junos, config for tls and firewall filter/ports
+
 
 ## Add more Juniper devices
-/etc/telegraf/telegraf.d  
-todo
+Juniper devices are stored in /etc/telegraf/telegraf.d/<device>-inputs.jti.conf  
+You can group multiple devices in a single inputs file, like QFX, EX, MX, SRX etc.
+```
+servers = ["leaf01.acme-corp.com:32767","leaf02.acme-corp.com:32767"]
+```
+You can also have one file per devices. This give you the most flexibility over what sensors and interval to pick.  
 
-## Telegraf configuration files
-Todo
+After you have added more input files, run:
+```
+sudo chown telegraf:telegraf /etc/telegraf/telegraf.d/*
+```
 
 ### Telegraf processors
 Todo
