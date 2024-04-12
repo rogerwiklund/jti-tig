@@ -41,8 +41,9 @@ Do you want to continue? (yes/no): yes
 ```
 
 - Self-signed certificates will be generated for Grafana and InfluxDB with the hostname given in the first prompt.  
-- After the installation go to http://fqdn to login to Grafana with default admin/admin credentials.
+- After the installation go to https://fqdn and login to Grafana with default admin/admin credentials.
 - Download the jti_dashboard.json from this repo and import it to Grafana.
+- Done!
 
 ## Junos configuration
 ```
@@ -52,6 +53,10 @@ set system services extension-service request-response grpc skip-authentication
 
 todo, info about mgmt_junos, config for tls and firewall filter/ports
 ```
+
+## Add more Juniper devices
+/etc/telegraf/telegraf.d
+todo
 
 ## Telegraf configuration files
 Todo
