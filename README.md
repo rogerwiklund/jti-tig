@@ -54,11 +54,11 @@ set system services extension-service request-response grpc clear-text port 3276
 set system services extension-service request-response grpc routing-instance mgmt_junos
 set system services extension-service request-response grpc skip-authentication
 ```
-- todo, info about mgmt_junos, config for tls and firewall filter/ports
-
+- todo, info about mgmt_junos, config for tls
+- make sure your re-filter allow traffic to TCP/32767
 
 ## Add more Juniper devices
-Juniper devices are stored in /etc/telegraf/telegraf.d/<device>-inputs.jti.conf  
+Juniper devices are stored in /etc/telegraf/telegraf.d/device-inputs.jti.conf  
 You can group multiple devices in a single inputs file, like QFX, EX, MX, SRX etc.
 ```
 servers = ["leaf01.acme-corp.com:32767","leaf02.acme-corp.com:32767"]
