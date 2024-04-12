@@ -68,6 +68,8 @@ You can also have one file per devices. This give you the most flexibility over 
 After you have added more input files, run:
 ```
 sudo chown telegraf:telegraf /etc/telegraf/telegraf.d/*
+sudo systemctl restart telegraf
+sudo systemctl status telegraf <- check for errors
 ```
 
 ### Telegraf processors
