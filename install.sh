@@ -210,7 +210,7 @@ EOF
 
 echo "$inputs_jti" > /etc/telegraf/telegraf.d/$juniper_device-inputs.jti.conf
 
-proccessors_jti=$(cat <<EOF
+processors_jti=$(cat <<EOF
 #
 # Convert various measurements from string to float for easier manipulation in Grafana
 [[processors.rename]]
