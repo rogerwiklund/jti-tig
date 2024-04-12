@@ -54,7 +54,7 @@ set system services extension-service request-response grpc clear-text port 3276
 set system services extension-service request-response grpc routing-instance mgmt_junos
 set system services extension-service request-response grpc skip-authentication
 ```
-- todo, info about mgmt_junos, config for tls
+- todo, info about mgmt_junos, config for tls, username/password
 - make sure your re-filter allow traffic to TCP/32767
 
 ## Add more Juniper devices
