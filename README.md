@@ -71,6 +71,11 @@ sudo chown telegraf:telegraf /etc/telegraf/telegraf.d/*
 sudo systemctl restart telegraf
 sudo systemctl status telegraf <- check for errors
 ```
+## Sensors for SRX Firewalls
+```
+"security_spu /junos/security/spu/cpu/usage",
+"security_flows /junos/security/spu/flow/usage",
+```
 
 ### Telegraf processors
 Todo
