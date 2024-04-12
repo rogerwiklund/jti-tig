@@ -40,8 +40,9 @@ Juniper Device FQDN/IP: qfx01.acme-corp.com
 Do you want to continue? (yes/no): yes
 ```
 
-Self-signed certificates will be generated for Grafana and InfluxDB with the hostname given in the first prompt.  
-After the installation go to http://fqdn to login to Grafana.
+- Self-signed certificates will be generated for Grafana and InfluxDB with the hostname given in the first prompt.  
+- After the installation go to http://fqdn to login to Grafana with default admin/admin credentials.
+- Download the jti_dashboard.json from this repo and import it to Grafana.
 
 ## Junos configuration
 ```
