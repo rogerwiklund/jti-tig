@@ -19,7 +19,10 @@ git clone https://github.com/rogerwiklund/jti-tig.git
 cd jti-tig
 chmod +x install.sh
 sudo ./install.sh
+```
 
+Example:
+```
 This script will install and configure Telegraf, InfluxDB and Grafana from the official repos.
 
 Enter the _full_ FQDN for this server (example: grafana01.acme-corp.com): grafana01.acme-corp.com
