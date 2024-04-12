@@ -224,9 +224,9 @@ proccessors_jti=$(cat <<EOF
     float = ["/components/component/properties/property/state/value_float"]
 #
 # Normalize loopback-mode from string to boolean
-[[processors.converter]]
-  [processors.converter.fields]
-    boolean = ["/interfaces/interface/state/loopback-mode"]
+#[[processors.converter]]
+#  [processors.converter.fields]
+#    boolean = ["/interfaces/interface/state/loopback-mode"]
 #
 # Normalize Junos EVO to match Junos
 [[processors.converter]]
