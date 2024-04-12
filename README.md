@@ -43,6 +43,13 @@ Do you want to continue? (yes/no): yes
 Self-signed certificates will be generated for Grafana and InfluxDB with the hostname given in the first prompt.  
 After the installation go to http://fqdn to login to Grafana.
 
+## Junos configuration
+```
+set system services extension-service request-response grpc clear-text port 32767
+set system services extension-service request-response grpc routing-instance mgmt_junos
+set system services extension-service request-response grpc skip-authentication
+```
+
 ## Telegraf configuration files
 Todo
 
