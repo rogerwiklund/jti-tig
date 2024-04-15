@@ -130,7 +130,7 @@ If you have SRX devices you can add security sensors below to monitor flow and S
 "security_flows /junos/security/spu/flow/usage",
 ```
 
-### Telegraf processors
+## Telegraf processors
 Telegraf processors are configured to normalize data for easier manipulation in Grafana.  
 Config is located in /etc/telegraf/telegraf.d/processors.conf
 
