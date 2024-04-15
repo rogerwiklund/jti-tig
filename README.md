@@ -1,4 +1,4 @@
-## Juniper Telemetry Interface with Telegraf, InfluxDB and Grafana
+## Juniper Telemetry Interface & Telegraf, InfluxDB and Grafana
 This repo contains a bash script that will install and configure Telegraf, InfluxDB and Grafana for the official repos.  
 A pre-build Grafan Dashboard is provided to monitor Streaming Telemetry from Juniper devices.
 
