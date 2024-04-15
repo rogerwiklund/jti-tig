@@ -78,7 +78,7 @@ set system services extension-service request-response grpc ssl use-pki
 set system services extension-service request-response grpc routing-instance mgmt_junos
 set system services extension-service request-response grpc skip-authentication
 ```
-### (Optional) Enable username/password authentication
+### (Optional) Enable authentication
 Modify /etc/telegraf/telegraf.d/\<device\>-inputs.jti.conf to use authentication
 ```
 username = "user"
