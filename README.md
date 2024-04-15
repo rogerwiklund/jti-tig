@@ -113,7 +113,8 @@ sudo systemctl restart telegraf
 sudo systemctl status telegraf <- check for errors
 ```
 ## Sensors & sample frequency
-Telegraf is configured to subscribe to four sensors that are supported across all Juniper devices. Frequency is set to 10000ms.  
+Telegraf is configured to subscribe to four sensors that are supported across all Juniper devices.  
+Frequency is set to 10000ms.  
 Sensor paths are quite broad and can be set to be more specific in order to save disk space. See Juniper Telemetry Explorer section.
 ```
 sensors = [
