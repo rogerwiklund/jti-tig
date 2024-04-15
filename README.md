@@ -89,8 +89,7 @@ Remove skip-authentication from Junos
 ```
 delete system services extension-service request-response grpc skip-authentication
 ```
-Modify any RE firewall filter to allow TCP/32767 from TIG source.   
-Restart telegraf.
+Modify any RE firewall filter to allow TCP/32767 from TIG source and restart telegraf.
 ```
 sudo chown telegraf:telegraf /etc/telegraf/telegraf.d/*
 sudo systemctl restart telegraf
