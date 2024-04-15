@@ -1,17 +1,20 @@
-## Juniper Telemetry Interface & Telegraf, InfluxDB and Grafana
-This repo contains a bash script that will install and configure Telegraf, InfluxDB and Grafana for the official repos.  
-A pre-build Grafan Dashboard is provided to monitor Streaming Telemetry from Juniper devices.
+## Juniper Telemetry Interface - Telegraf, InfluxDB and Grafana
+This repository contains a bash script that will install and configure Telegraf, InfluxDB and Grafana from the official repos.  
+A pre-built Grafana dashboard is provided to monitor Streaming Telemetry from Juniper devices.
+
+Components:  
 
 - Telegraf-latest
 - InfluxDB 1.8x-latest
 - Grafana Enterprise-latest
 
-InfluxDB 1.8 is used because 2.x uses the Flux query language which Grafana has no suppport for when using the query builder.  
-When InfluxDB 3.0 community edition is released I will update this script to use 3.0 instead which uses SQL.
+InfluxDB 1.8 is used because Grafana lacks support for the visual query builder in InfluxDB  2.x due to its use of the Flux query language.  
+Once InfluxDB 3.0 community edition is released, I'll update the installation script to use it as it employs standard SQL.
 
 ## Requirements
 - Ubuntu Server 22.04.4 LTS
-- Juniper devices capable of Telemetry Streaming using gNMI/gRPC/Openconfig
+- Juniper devices capable of Streaming Telemetry using gNMI/gRPC/Openconfig
+- Junos 21.4R3 or higher
 
 ## Installation
 ```
@@ -30,7 +33,7 @@ Create a new database for InfluxDB (example: jti): jti
 Create a new user for InfluxDB (example: admin): admin
 Enter the password for the InfluxDB user: secret
 Enter the database retention period in days (example: 90d): 30d
-Enter the FQDN or IP of a Juniper device capable of Telemetry Streaming (you can add more after the installation): qfx01.acme-corp.com
+Enter the FQDN or IP of a Juniper device capable of Streaming Telemetry (you can add more after the installation): qfx01.acme-corp.com
 
 Collected Information:
 FQDN: grafana01.acme-corp.com
@@ -42,23 +45,50 @@ Juniper Device FQDN/IP: qfx01.acme-corp.com
 
 Do you want to continue? (yes/no): yes
 ```
-
-- Self-signed certificates will be generated for Grafana and InfluxDB with the hostname given in the first prompt.  
-- After the installation go to https://fqdn and login to Grafana with default admin/admin credentials.
-- Download the jti_dashboard.json from this repo and import it to Grafana.
-- Done!
+ 
+After the installation go to https://fqdn and login to Grafana with default credentials (admin/admin).  
+Download the jti_dashboard.json from this repository and import it to Grafana.  
 
 ## Junos configuration
+The installation script configures telegraf to use clear-text communication and to skip authentication.  
+Use the Junos below config to get started. All example configs are using JTI via dedicated OOB port with mgmt_junos vrf.
 ```
 set system services extension-service request-response grpc clear-text port 32767
 set system services extension-service request-response grpc routing-instance mgmt_junos
 set system services extension-service request-response grpc skip-authentication
 ```
-- todo, info about mgmt_junos, config for tls, username/password
-- make sure your re-filter allow traffic to TCP/32767
+(Optional) To enable encryption you need to upload certificates from TIG to each Juniper device:  
+```
+sudo scp /etc/ssl/grafana-selfsigned.* user@juniper-device:/var/tmp/
+```
+Modify /etc/telegraf/telegraf.d/\<device\>-inputs.jti.conf to use encryption.  
+"insecure_skip_verify = true" must be used for self-signed certificates.  
+```
+enable_tls = true
+insecure_skip_verify = true
+```
+Modify Junos config to load certificates and enable SSL.
+```
+request security pki local-certificate load certificate-id grafana filename /var/tmp/grafana-selfsigned.crt key /var/tmp/grafana-selfsigned.key
+set system services extension-service request-response grpc ssl port 32767
+set system services extension-service request-response grpc ssl local-certificate grafana
+set system services extension-service request-response grpc ssl use-pki
+set system services extension-service request-response grpc routing-instance mgmt_junos
+set system services extension-service request-response grpc skip-authentication
+```
+To enable username/password authentication on top of SSL, 
+```
+username = "user"
+password = "pass"
+client_id = "telegraf"
+```
+```
+delete system services extension-service request-response grpc skip-authentication
+```
+Don't forget to modify routing engine firewall filter to allow TCP/32767 from TIG source.
 
 ## Add more Juniper devices
-Juniper devices are stored in /etc/telegraf/telegraf.d/device-inputs.jti.conf  
+Juniper devices are stored in /etc/telegraf/telegraf.d/\<device-inputs\>.jti.conf  
 You can group multiple devices in a single inputs file, like QFX, EX, MX, SRX etc.
 ```
 servers = ["leaf01.acme-corp.com:32767","leaf02.acme-corp.com:32767"]
@@ -78,7 +108,8 @@ sudo systemctl status telegraf <- check for errors
 ```
 
 ### Telegraf processors
-Todo
+Telegraf processors are configured to normalize data for easier manipulation in Grafana.
+Config is located in /etc/telegraf/telegraf.d/processors.conf
 
 ## Juniper Telemetry Explorer
 https://apps.juniper.net/telemetry-explorer/
