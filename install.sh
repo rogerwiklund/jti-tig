@@ -333,6 +333,7 @@ echo "$grafana_datasource" > /etc/grafana/provisioning/datasources/jti_influxdb.
 chown root:grafana /etc/grafana/provisioning/datasources/jti_influxdb.yaml
 chmod 640 /etc/grafana/provisioning/datasources/jti_influxdb.yaml
 
+#below is kept for reference
 #grafana_dashboard=$(cat <<EOF
 #apiVersion: 1
 #
@@ -364,6 +365,8 @@ echo "####################"
 echo "Installation completed"
 echo ""
 echo "Go to https://fqdn:443 with default credentials admin/admin to access Grafana"
+echo "Download jti_dashboard.json from Github and import it to Grafana"
+echo ""
 echo ""
 echo "Telegraf config files - /etc/telegraf/telegraf.d/"
 echo "InfluxDB config file - /etc/influxdb/influxdb.conf"
