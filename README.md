@@ -96,7 +96,7 @@ sudo chown telegraf:telegraf /etc/telegraf/telegraf.d/*
 sudo systemctl restart telegraf
 sudo systemctl status telegraf <- check for errors
 ```
-### Information about mutual encryption and authentication
+### Information about mutual (bidirectional) authentication
 https://www.juniper.net/documentation/us/en/software/junos/grpc-network-services/topics/topic-map/grpc-services-configuring.html
 
 ## Add more Juniper devices
