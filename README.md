@@ -100,7 +100,7 @@ sudo systemctl status telegraf <- check for errors
 https://www.juniper.net/documentation/us/en/software/junos/grpc-network-services/topics/topic-map/grpc-services-configuring.html
 
 ## Add more Juniper devices
-Juniper devices are stored in /etc/telegraf/telegraf.d/\<device-inputs\>.jti.conf  
+Juniper devices are stored in /etc/telegraf/telegraf.d/\<device\>-inputs.jti.conf  
 You can group multiple devices in a single inputs file, like QFX, EX, MX, SRX etc.
 ```
 servers = ["leaf01.acme-corp.com:32767","leaf02.acme-corp.com:32767"]
