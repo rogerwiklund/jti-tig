@@ -205,6 +205,7 @@ inputs_jti=$(cat <<EOF
 #
 #   ## To treat all string values as tags, set this to true
 #   str_as_tags = false
+fielddrop = [ "/interfaces/interface/subinterfaces/*","/interfaces/interface/aggregation/*" ]
 EOF
 )
 
