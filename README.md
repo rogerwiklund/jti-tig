@@ -135,6 +135,15 @@ If you have SRX devices you can add security sensors below to monitor flow and S
 Telegraf processors are configured to normalize data for easier manipulation in Grafana.  
 Config is located in /etc/telegraf/telegraf.d/processors.conf
 
+## Drop Telegraf database
+During lab/testing you might want to delete the entire database and start fresh, use the commands below:
+```
+influx -ssl -unsafeSsl -username <username> -password <password>
+use <database>
+DROP SERIES FROM /.*/
+exit
+```
+
 ## Juniper Telemetry Explorer
 https://apps.juniper.net/telemetry-explorer/
 
