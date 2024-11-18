@@ -146,7 +146,7 @@ DROP SERIES FROM /.*/
 exit
 ```
 
-## Juniper Telemetry Explorer
+## Juniper Telemetry Explorer (deprecated)
 https://apps.juniper.net/telemetry-explorer/
 
 ## Juniper YANG Data Model Explorer
