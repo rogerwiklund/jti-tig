@@ -116,7 +116,8 @@ sudo systemctl status telegraf <- check for errors
 ## Sensors & sample frequency
 Telegraf is configured to subscribe to four sensors that are supported across all Juniper devices.  
 Frequency is set to 10000ms.  
-Sensor paths are quite broad and can be set to be more specific in order to save disk space. See Juniper Telemetry Explorer section.
+Sensor paths are quite broad and can be set to be more specific in order to save disk space. See Juniper Telemetry Explorer section.  
+NOTE: If you're monitoring a router with full BGP table, you MUST narrow down the /network-instances/ path otherwise telegraf will try to store ~900k prefixes in the database every 10 seconds.
 ```
 sensors = [
     "/interfaces/",
