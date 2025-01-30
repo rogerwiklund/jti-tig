@@ -75,6 +75,7 @@ request security pki local-certificate load certificate-id grafana filename /var
 set system services extension-service request-response grpc ssl port 32767
 set system services extension-service request-response grpc ssl local-certificate grafana
 set system services extension-service request-response grpc ssl use-pki
+set system services extension-service request-response grpc ssl hot-reloading
 set system services extension-service request-response grpc routing-instance mgmt_junos
 set system services extension-service request-response grpc skip-authentication
 ```
