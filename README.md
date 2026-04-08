@@ -12,7 +12,7 @@ InfluxDB 1.x is used because Grafana lacks support for the visual query builder 
 Once InfluxDB 3.0 community edition is released, I'll update the installation script to use it as it employs standard SQL.
 
 ## Requirements
-- Ubuntu Server 22.04.4 LTS
+- Ubuntu Server 22.04.4 LTS or higher
 - Juniper devices capable of Streaming Telemetry using gNMI/gRPC/Openconfig
 - Junos 21.4R3 or higher
 
