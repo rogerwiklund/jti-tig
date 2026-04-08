@@ -5,10 +5,10 @@ A pre-built Grafana dashboard is provided to monitor Streaming Telemetry from Ju
 Components:  
 
 - Telegraf-latest
-- InfluxDB 1.8x-latest
+- InfluxDB 1.x-latest
 - Grafana Enterprise-latest
 
-InfluxDB 1.8 is used because Grafana lacks support for the visual query builder in InfluxDB  2.x due to its use of the Flux query language.  
+InfluxDB 1.x is used because Grafana lacks support for the visual query builder in InfluxDB  2.x due to its use of the Flux query language.  
 Once InfluxDB 3.0 community edition is released, I'll update the installation script to use it as it employs standard SQL.
 
 ## Requirements
